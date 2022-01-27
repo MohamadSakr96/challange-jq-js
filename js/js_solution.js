@@ -23,15 +23,16 @@ function startRound() {
 
 function nextLevel() {
     let n = Math.floor(Math.random()*4);
+    let sound = new Audio(`sounds/${color_class[n]}.mp3`);
     level.push(color_class[n]);
     document.getElementById("title").innerText = `Level ${level.length}`;
-    // ---------------------------------------------------------- add sound
     setTimeout(() => {
         document.getElementById(`${color_class[n]}`).style.opacity = 0.5;
     }, 50);
     setTimeout(() => {
         document.getElementById(`${color_class[n]}`).style.opacity = 0;
     }, 100);
+    sound.play();
     setTimeout(() => {
         document.getElementById(`${color_class[n]}`).style.opacity = 0.5;
     }, 150);
@@ -63,7 +64,8 @@ function checkBtn(s) {
 }
 
 function btnFlash(btn_class) {
-    // ------------------------------------------------------------------------- add sound
+    let sound = new Audio(`sounds/${btn_class}.mp3`);
+    sound.play();
     document.getElementById(`${btn_class}`).classList.add("pressed");
     setTimeout(() => {
         document.getElementById(`${btn_class}`).classList.remove("pressed");
@@ -74,7 +76,8 @@ function btnFlash(btn_class) {
 function gameOver() {
     document.getElementById("title").innerText = `Game Over, Press Any Key to Restart`;
 
-    // ------------------------------------------------------------------------- add sound
+    let sound = new Audio(`sounds/wrong.mp3`);
+    sound.play();
     
     document.getElementsByTagName("body")[0].classList.add("game-over");
     setTimeout(() => {

@@ -66,7 +66,10 @@ function btnFlash(btn_class) {
 function gameOver() {
     $("#title").text(`Game Over, Press Any Key to Restart`);
     $("body").addClass("game-over");
-    // ------------------------------------------------------------------------- add sound
+    
+    let sound = new Audio(`sounds/wrong.mp3`);
+    sound.play();
+
     setTimeout(() => {
         $("body").removeClass("game-over");
     }, 150);
