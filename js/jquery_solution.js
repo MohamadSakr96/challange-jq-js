@@ -1,6 +1,6 @@
 // Setup
 var level = [];
-var color_class = [".green", ".red", ".yellow", ".blue"];
+var color_class = ["green", "red", "yellow", "blue"];
 var pressed_btn_number = 0;
 
 
@@ -23,19 +23,19 @@ function startRound() {
 
 function nextLevel() {
     let n = Math.floor(Math.random()*4);
-    level.push(color_class[n]); // num
+    level.push(color_class[n]);
+    let sound = new Audio(`sounds/${color_class[n]}.mp3`);
+    sound.play();
     $("#title").text(`Level ${level.length}`);
-    $(`${level[level.length-1]}`).fadeOut(150);
-    // ---------------------------------------------------------- add sound
-    $(`${level[level.length-1]}`).fadeIn(150);
-    console.log(level);
+    $(`.${color_class[n]}`).fadeOut(150);
+    $(`.${color_class[n]}`).fadeIn(150);
     playerTurn();
 }
 
 function playerTurn() {
     let pressed_btn = "";
     for (let i=0; i<color_class.length; i++) {
-        $(`${color_class[i]}`).click(() => {
+        $(`.${color_class[i]}`).click(() => {
             pressed_btn = btnFlash(color_class[i]);
             checkBtn(pressed_btn);
         });
@@ -43,7 +43,6 @@ function playerTurn() {
 }
 
 function checkBtn(s) {
-    console.log(s,pressed_btn_number)
     if (s != level[pressed_btn_number]) {
         gameOver();
     }else {
@@ -55,10 +54,11 @@ function checkBtn(s) {
 }
 
 function btnFlash(btn_class) {
-    $(`${btn_class}`).addClass("pressed");
-    // ------------------------------------------------------------------------- add sound
+    let sound = new Audio(`sounds/${btn_class}.mp3`);
+    sound.play();
+    $(`.${btn_class}`).addClass("pressed");
     setTimeout(() => {
-        $(`${btn_class}`).removeClass("pressed");
+        $(`.${btn_class}`).removeClass("pressed");
     }, 150);
     return btn_class;
 }
@@ -66,7 +66,7 @@ function btnFlash(btn_class) {
 function gameOver() {
     $("#title").text(`Game Over, Press Any Key to Restart`);
     $("body").addClass("game-over");
-    
+
     let sound = new Audio(`sounds/wrong.mp3`);
     sound.play();
 
@@ -84,6 +84,6 @@ function removeEvent() {
     $("body").unbind('keydown', startRound);
     $(".btn").unbind('click', btnFlash);
     for (let i=0; i<color_class.length; i++) {
-        $(`${color_class[i]}`).unbind();
+        $(`.${color_class[i]}`).unbind();
     }
 }
