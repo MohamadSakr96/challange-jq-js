@@ -3,7 +3,6 @@ var level = [];
 var color_class = ["green", "red", "yellow", "blue"];
 var pressed_btn_number = 0;
 
-var all_btns = document.getElementsByClassName("btn");
 
 window.onload = () => {
     startGame();
@@ -45,16 +44,14 @@ function nextLevel() {
 function playerTurn() {
     let pressed_btn = "";
     for (let i=0; i<color_class.length; i++) {
-        document.getElementById(`${color_class[i]}`).addEventListener("click", () => {
+        $(`.${color_class[i]}`).click(() => {         // I need this jquery for my code to work...
             pressed_btn = btnFlash(color_class[i]);
-            console.log(pressed_btn, pressed_btn_number)
             checkBtn(pressed_btn);
         });
     }
 }
 
 function checkBtn(s) {
-    console.log("yo ",s,pressed_btn_number);
     if (s != level[pressed_btn_number]) {
         gameOver();
     }else {
@@ -92,14 +89,11 @@ function gameOver() {
 }
 
 function removeEvent() {
+
     document.getElementsByTagName("body")[0].removeEventListener('click', startRound); 
     document.getElementsByTagName("body")[0].removeEventListener('keydown', startRound); 
     
-    for (let i=0; i<all_btns.length; i++) {
-        all_btns[i].removeEventListener('click', btnFlash);
-    }
-
     for (let i=0; i<color_class.length; i++) {
-        document.getElementById(`${color_class[i]}`).removeEventListener('click', ()=>{});
+        $(`.${color_class[i]}`).unbind();
     }
 }
