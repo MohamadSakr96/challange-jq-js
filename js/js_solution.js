@@ -2,6 +2,7 @@
 var level = [];
 var color_class = ["green", "red", "yellow", "blue"];
 var pressed_btn_number = 0;
+var clicked_btn = [];
 
 
 window.onload = () => {
@@ -42,14 +43,32 @@ function nextLevel() {
     playerTurn();
 }
 
+
 function playerTurn() {
-    let pressed_btn = "";
-    for (let i=0; i<color_class.length; i++) {
-        $(`.${color_class[i]}`).click(() => {         // I need this jquery for my code to work...
-            pressed_btn = btnFlash(color_class[i]);
-            checkBtn(pressed_btn);
-        });
-    }
+    document.getElementById("green").addEventListener('click', greenButton);
+    document.getElementById("yellow").addEventListener('click', yellowButton);
+    document.getElementById("blue").addEventListener('click', blueButton);
+    document.getElementById("red").addEventListener('click', redButton);
+}
+
+function greenButton() {
+    btnFlash("green");
+    checkBtn("green");
+}
+
+function yellowButton() {
+    btnFlash("yellow");
+    checkBtn("yellow");
+}
+
+function blueButton() {
+    btnFlash("blue");
+    checkBtn("blue");
+}
+
+function redButton() {
+    btnFlash("red");
+    checkBtn("red");
 }
 
 function checkBtn(s) {
@@ -63,14 +82,14 @@ function checkBtn(s) {
     }
 }
 
-function btnFlash(btn_class) {
-    let sound = new Audio(`sounds/${btn_class}.mp3`);
+function btnFlash(d) {
+    let sound = new Audio(`sounds/${d}.mp3`);
     sound.play();
-    document.getElementById(`${btn_class}`).classList.add("pressed");
+    document.getElementById(`${d}`).classList.add("pressed");
     setTimeout(() => {
-        document.getElementById(`${btn_class}`).classList.remove("pressed");
+        document.getElementById(`${d}`).classList.remove("pressed");
     }, 150);
-    return btn_class;
+    return d;
 }
 
 function gameOver() {
@@ -92,11 +111,10 @@ function gameOver() {
 }
 
 function removeEvent() {
-
     document.getElementsByTagName("body")[0].removeEventListener('click', startRound); 
     document.getElementsByTagName("body")[0].removeEventListener('keydown', startRound); 
-    
-    for (let i=0; i<color_class.length; i++) {
-        $(`.${color_class[i]}`).unbind();
-    }
+    document.getElementById("green").removeEventListener('click', greenButton);
+    document.getElementById("yellow").removeEventListener('click', yellowButton);
+    document.getElementById("blue").removeEventListener('click', blueButton);
+    document.getElementById("red").removeEventListener('click', redButton);
 }
