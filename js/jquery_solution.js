@@ -1,9 +1,9 @@
 // Setup
 var level = [];
-var color_class = ["green", "red", "yellow", "blue"];
+var color_class = ["green", "red", "yellow", "blue"];  
 var pressed_btn_number = 0;
 
-
+// starting the game
 $(document).ready(() => {
     startGame();
 });
@@ -14,11 +14,11 @@ function startGame(){
     $("body").unbind("click",startGame);
     $("body").unbind("keydown",startGame);
 }
-    
+
 function startRound() {
-    pressed_btn_number = 0;
+    pressed_btn_number = 0;   // to reset every round
     removeEvent();
-    setTimeout(nextLevel, 300);
+    setTimeout(nextLevel, 300);  //for better transition
 }
 
 function nextLevel() {
@@ -31,7 +31,7 @@ function nextLevel() {
     $(`.${color_class[n]}`).fadeIn(150);
     playerTurn();
 }
-
+// this part is when the player starts to press buttons
 function playerTurn() {
     let pressed_btn = "";
     for (let i=0; i<color_class.length; i++) {
@@ -41,13 +41,13 @@ function playerTurn() {
         });
     }
 }
-
+// check the pressed button by the player 
 function checkBtn(s) {
     if (s != level[pressed_btn_number]) {
         gameOver();
     }else {
         pressed_btn_number += 1;
-        if (pressed_btn_number >= level.length) {
+        if (pressed_btn_number >= level.length) {   // if the player succeeded in finishing the round 
             startRound();
         }
     }

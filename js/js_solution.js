@@ -2,9 +2,8 @@
 var level = [];
 var color_class = ["green", "red", "yellow", "blue"];
 var pressed_btn_number = 0;
-var clicked_btn = [];
 
-
+// starting the game
 window.onload = () => {
     startGame();
 }
@@ -21,14 +20,14 @@ function startRound() {
     removeEvent();
     setTimeout(nextLevel, 300);
 }
-
+// This part where the game tells you what button to press
 function nextLevel() {
     let n = Math.floor(Math.random()*4);
     let sound = new Audio(`sounds/${color_class[n]}.mp3`);
     level.push(color_class[n]);
     document.getElementById("title").innerText = `Level ${level.length}`;
     setTimeout(() => {
-        document.getElementById(`${color_class[n]}`).style.opacity = 0.5;
+        document.getElementById(`${color_class[n]}`).style.opacity = 0.5;   //instead of fade out and fade in
     }, 50);
     setTimeout(() => {
         document.getElementById(`${color_class[n]}`).style.opacity = 0;
@@ -43,7 +42,7 @@ function nextLevel() {
     playerTurn();
 }
 
-
+// this part is when the player starts to press buttons
 function playerTurn() {
     document.getElementById("green").addEventListener('click', greenButton);
     document.getElementById("yellow").addEventListener('click', yellowButton);
@@ -71,6 +70,7 @@ function redButton() {
     checkBtn("red");
 }
 
+// check the pressed button by the player 
 function checkBtn(s) {
     if (s != level[pressed_btn_number]) {
         gameOver();
