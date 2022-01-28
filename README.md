@@ -2,7 +2,7 @@
 
 The main purpose of this game is to see what's the difference between using jquery and using only javascript.
 
-## Main Languages Used
+## Languages Used
 
 > HTML
 
